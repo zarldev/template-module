@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "zarldev - template-module-placeholder"
+echo "checking for compliance"
+echo "linting"
+make lint
+echo "testing"
+make test
+echo "test-coverage"
+make test-coverage
