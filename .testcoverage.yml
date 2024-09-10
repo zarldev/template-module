@@ -1,0 +1,14 @@
+profile: coverage.out
+local-prefix: "github.com/template-module-placeholder"
+threshold:
+  # The minimum coverage that each file should have
+  file: 80
+   # The minimum coverage that each package should have
+  package: 80
+  # The minimum total coverage project should have
+  total: 80
+
+exclude:
+  paths:
+    - \.gen\.go$    # excludes all generated files
+    - \.pb\.go$    # excludes all protobuf generated files
