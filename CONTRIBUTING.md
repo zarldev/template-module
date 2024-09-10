@@ -30,6 +30,8 @@ This is just a wrapper around the following command:
 go test -v --race ./...
 ```
 
+You should alway use test packages to test your code this allows a more true picture of what the surface API is like with to interact with in a real world scenario, it also helps to ensure that the code is testable and can be tested in isolation with out using private internal functions.
+
 ## Linting
 
 Linting should use the standard golangci-lint tool. To run linting, use the following command:
