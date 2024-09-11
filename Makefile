@@ -9,7 +9,7 @@ DIST?=./dist
 GOOS?=$(shell go env GOOS)
 GOARCH?=$(shell go env GOARCH)
 
-NAME?=template-module-placeholder
+NAME?=name-placeholder
 VERSION?=v0.0.0
 
 default: help
