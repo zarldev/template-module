@@ -1,6 +1,6 @@
 .PHONY: all lint test test-coverage coverage setup setup-name setup-githooks setup-tools
 
-$(shell mkdir -p .git/hooks && cp .githooks/prepush .git/hooks/pre-push)
+
 GO:=$(shell which go)
 GOBIN:=$(shell go env GOPATH)/bin
 GOLANGCILINT:=$(GOBIN)/golangci-lint
@@ -51,8 +51,10 @@ setup-tools:
 
 setup-githooks:
 	@echo "Setting up git hooks..."
-	@git config core.hooksPath .githooks
-
+	@mkdir -p .git/hooks
+	@mv .githooks/pre-push .git/hooks/pre-push
+	@chmod +x .git/hooks/pre-push
+	@rm -rf .githooks
 
 lint: 
 	$(GOLANGCILINT) --config .golangci.yml run
