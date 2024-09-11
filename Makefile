@@ -9,7 +9,7 @@ DIST?=./dist
 GOOS?=$(shell go env GOOS)
 GOARCH?=$(shell go env GOARCH)
 
-NAME?=template-module-placeholder
+NAME?=name-placeholder
 VERSION?=v0.0.0
 
 default: help
@@ -36,7 +36,6 @@ setup-name:
 	sed -i "s/template-module-placeholder/$$name/" .github/workflows/main.yml; \
 	sed -i "s/template-module-placeholder/$$name/" .golangci.yml; \
 	sed -i "s/template-module-placeholder/$$name/" .testcoverage.yml; \
-	sed -i "s/template-module-placeholder/$$name/" Makefile; \
 	sed -i "s/template-module-placeholder/$$name/" CONTRIBUTING.md; \
 	sed -i "s/template-module-placeholder/$$name/" LICENSE; \
 	mv template-README.md README.md;
