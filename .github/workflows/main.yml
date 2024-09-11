@@ -1,5 +1,5 @@
 name: template-module-placeholder
-run-name: template-module-placeholder run-name: ${{ github.event_name == 'pull_request' && format('PR #{0} - {1}', github.event.pull_request.number, github.event.pull_request.title) || format('Push to {0} - {1}', github.ref_name, github.sha) }}
+run-name: template-module-placeholder - ${{ github.event_name == 'pull_request' && format('PR #{0} - {1}', github.event.pull_request.number, github.event.pull_request.title) || format('Push to {0} - {1}', github.ref_name, github.sha) }}
 on: [push, pull_request]
 jobs:
   testing:
@@ -25,6 +25,8 @@ jobs:
     needs: testing
     runs-on: ubuntu-latest
     steps:
+      - name: checkout template-module-placeholder
+        uses: actions/checkout@v4
       - name: download coverage report
         uses: actions/download-artifact@v4
         with:
