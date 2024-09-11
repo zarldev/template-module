@@ -1,23 +1,34 @@
 name: template-module-placeholder
-run-name: template-module-placeholder v${{ github.event.inputs.version }} (${{ github.ref_name }}) build ${GITHUB_RUN_NUMBER}
+run-name: template-module-placeholder [(${{ github.ref_name }})
 on: [push, pull_request]
 jobs:
-  quality-control:
+  testing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - name: checkout template-module-placeholder
+        uses: actions/checkout@v4
+      - name: setup go 
+        uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
           cache-dependency-path: '**/go.sum'
-      - name: lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.61
       - name: test with race detector
         run: go test -v --race ./...
       - name: test with coverage
         run: go test -v -coverprofile=coverage.out -covermode=atomic -coverpkg=./...
+      - name: upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.out
+  coverage:
+    needs: testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: download coverage report
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
       - name: check test coverage
         uses: vladopajic/go-test-coverage@v2
         with:
@@ -29,6 +40,31 @@ jobs:
         with:
           name: coverage-report
           path: coverage.html
-    
+
+  quality-control:
+    runs-on: ubuntu-latest
+    needs: testing
+    steps:
+      - name: checkout template-module-placeholder
+        uses: actions/checkout@v4
+      - name: setup go 
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+          cache-dependency-path: '**/go.sum'
+      - name: lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.61
+      - name: go-vet check
+        run: go vet ./...
+      - name: go-fmt check
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "The following files are not formatted properly:"
+            echo "$unformatted"
+            exit 1
+          fi
       
     
