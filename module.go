@@ -11,10 +11,16 @@ func New(t bool) *Module {
 }
 
 func (m *Module) Toggle() {
+	if m == nil {
+		return
+	}
 	m.Toggled = !m.Toggled
 }
 
 func (m *Module) State() bool {
+	if m == nil {
+		return false
+	}
 	return m.Toggled
 }
 

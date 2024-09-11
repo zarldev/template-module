@@ -56,6 +56,8 @@ setup-githooks:
 	@chmod +x .git/hooks/pre-push
 	@rm -rf .githooks
 
+quality-control: lint test test-coverage coverage
+
 lint: 
 	$(GOLANGCILINT) --config .golangci.yml run
 	
@@ -67,7 +69,13 @@ test-coverage:
 	$(GO) tool cover -html=coverage.out -o coverage.html
 	
 coverage: test-coverage
-	$(GOTESTCOVERAGE) -v -coverprofile coverage.out 
+	@echo "Running test coverage..."
+	@echo ""
+	@echo "--------------------------------------------------"
+	@echo "----------[template-module-placeholder]----------"
+	$(GOTESTCOVERAGE) --config .testcoverage.yml
+	@echo "--------------------------------------------------"
+	@echo ""
 
 help:
 	@echo "template-module-placeholder"
