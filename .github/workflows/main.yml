@@ -27,6 +27,11 @@ jobs:
     steps:
       - name: checkout template-module-placeholder
         uses: actions/checkout@v4
+      - name: setup go 
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+          cache-dependency-path: '**/go.sum'
       - name: download coverage report
         uses: actions/download-artifact@v4
         with:
