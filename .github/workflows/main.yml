@@ -16,10 +16,10 @@ jobs:
         run: go test -v --race ./...
       - name: test with coverage
         run: go test -v -coverprofile=coverage.out -covermode=atomic -coverpkg=./...
-      - name: upload coverage report
+      - name: upload coverage out file
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-out
           path: coverage.out
   coverage:
     needs: testing
@@ -32,10 +32,10 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache-dependency-path: '**/go.sum'
-      - name: download coverage report
+      - name: download coverage out
         uses: actions/download-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-out
       - name: check test coverage
         uses: vladopajic/go-test-coverage@v2
         with:
