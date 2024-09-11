@@ -32,9 +32,6 @@ setup-name:
 	if [ -z "$$version" ]; then \
 		VERSION=v0.0.0; \
 	fi; \
-	sed -i "s/module .*/module github.com\/zarldev\/$$name/" go.mod; \
-	sed -i "s/name = \".*\"/name = \"$$name\"/" go.mod; \
-	sed -i "s/version = \".*\"/version = \"$$version\"/" go.mod; \
 	sed -i "s/template-module-placeholder/$$name/" template-README.md; \
 	sed -i "s/template-module-placeholder/$$name/" .github/workflows/main.yml; \
 	sed -i "s/template-module-placeholder/$$name/" .golangci.yml; \
