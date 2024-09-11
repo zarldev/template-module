@@ -1,6 +1,9 @@
 name: template-module-placeholder
 run-name: template-module-placeholder - ${{ github.event.pull_request.number || github.sha }}
-on: [push, pull_request]
+on:
+  pull_request:
+    branches: [ main ]
+
 jobs:
   testing:
     runs-on: ubuntu-latest
