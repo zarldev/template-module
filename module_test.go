@@ -7,6 +7,7 @@ import (
 )
 
 func TestModule_String(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name string
 		m    *module.Module
@@ -33,9 +34,9 @@ func TestModule_String(t *testing.T) {
 			want: "OFF",
 		},
 	}
-	t.Parallel()
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			if got := tt.m.String(); got != tt.want {
 				t.Errorf("module.String() = %v, want %v", got, tt.want)
 			}
